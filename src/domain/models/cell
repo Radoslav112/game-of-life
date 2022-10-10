@@ -1,0 +1,19 @@
+import { Coordinate } from "./coordinate";
+
+
+export class Cell {
+    status: boolean;
+    position: Coordinate; 
+
+    constructor() {
+
+    }
+
+    getStatus(){
+        return this.status;
+    }
+
+    getPosition() {
+        return this.position;
+    }
+}
