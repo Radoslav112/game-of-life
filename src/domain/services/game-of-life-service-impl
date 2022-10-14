@@ -1,0 +1,93 @@
+import { Cell } from "../models/cell";
+import { Coordinate } from "../models/coordinate";
+
+import { IGameOfLifeService } from "./i-game-of-life-service";
+
+//    no life on the edge
+//    1. Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
+//    2. Any live cell with more than three live neighbours dies, as if by overcrowding.
+//    3. Any live cell with two or three live neighbours lives on to the next generation.
+//    4. Any dead cell with exactly three live neighbours becomes a live cell.
+class GameOfLifeServiceImpl implements IGameOfLifeService {
+
+    private currentGeneration: Array<Cell>;
+    private nextGeneration: Array<Cell>;
+
+    constructor(Matrix:Array<Cell>){
+        this.currentGeneration=Matrix;
+        this.nextGeneration = new Array();
+    }
+
+    public generateNextGeneration(): Array<Cell> {
+        this.currentGeneration.forEach((cell)=>{
+            let neighbours = this.getNeighbours(cell);
+            this.nextGeneration.push(this.getCellStatusForNextGeneration(cell, neighbours));
+        })
+
+        return this.nextGeneration;
+
+        //      this is for backup so i dont have to write it again if i need to
+        //
+        // for(let i=1;i<this.currentGeneration.length-1;i++) {
+        //     for(let j=1;j<this.currentGeneration[i].length-1;j++){
+        //        let cellAndNeighbours = this.getCellMatrix(i,j);
+        //        this.nextGeneration[i][j]=this.getNextGenerationCell(cellAndNeighbours);
+        //     }
+        // }
+    }
+
+    private getNeighbours(cell: Cell) : Array<Cell> {
+        let cellPosition = cell.getPosition();
+        let neighbours = new Array();
+        neighbours.push(this.currentGeneration.find((element)=>{
+            element.getPosition()===new Coordinate(cellPosition.getX()-1,cellPosition.getY()-1)
+        }));
+        neighbours.push(this.currentGeneration.find((element)=>{
+            element.getPosition()===new Coordinate(cellPosition.getX()-1,cellPosition.getY())
+        }));
+        neighbours.push(this.currentGeneration.find((element)=>{
+            element.getPosition()===new Coordinate(cellPosition.getX()-1,cellPosition.getY()+1)
+        }));
+        neighbours.push(this.currentGeneration.find((element)=>{
+            element.getPosition()===new Coordinate(cellPosition.getX(),cellPosition.getY()-1)
+        }));
+        neighbours.push(this.currentGeneration.find((element)=>{
+            element.getPosition()===new Coordinate(cellPosition.getX(),cellPosition.getY()+1)
+        }));
+        neighbours.push(this.currentGeneration.find((element)=>{
+            element.getPosition()===new Coordinate(cellPosition.getX()+1,cellPosition.getY()-1)
+        }));
+        neighbours.push(this.currentGeneration.find((element)=>{
+            element.getPosition()===new Coordinate(cellPosition.getX()+1,cellPosition.getY())
+        }));
+        neighbours.push(this.currentGeneration.find((element)=>{
+            element.getPosition()===new Coordinate(cellPosition.getX()+1,cellPosition.getY()+1)
+        }));
+
+        return neighbours;
+    }
+
+    private getCellStatusForNextGeneration(cell: Cell, neighbours: Array<Cell>) {
+        let aliveNeighbours: number = this.getAliveNeighboursCount(neighbours);
+        cell.setStatus(this.willCellSurvive(aliveNeighbours) || this.willCellRevive(aliveNeighbours))
+        return cell;
+    }
+
+    private getAliveNeighboursCount(neighbours:Array<Cell>){
+        let aliveNeighbours = 0;
+        
+        neighbours.forEach((cell)=>{
+            if(cell.getStatus()) aliveNeighbours++;
+        })
+
+        return aliveNeighbours;
+    } 
+
+    private willCellSurvive(aliveNeighbours:number): boolean {
+        return aliveNeighbours===2|| aliveNeighbours===3;
+    }
+
+    private willCellRevive(aliveNeighbours:number):boolean {
+        return aliveNeighbours===3;
+    }
+}
