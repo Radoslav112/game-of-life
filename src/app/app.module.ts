@@ -6,6 +6,7 @@ import { GameOfLifeComponent } from './game-of-life/game-of-life.component';
 import { MatrixComponent } from './game-of-life/matrix/matrix.component';
 import { ToggleComponent } from './game-of-life/toggle/toggle.component';
 import { ParametersComponent } from './game-of-life/parameters/parameters.component';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ParametersComponent } from './game-of-life/parameters/parameters.compon
     ParametersComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    NoopAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

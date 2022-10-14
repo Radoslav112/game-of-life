@@ -1,7 +1,7 @@
 import { Cell } from "../models/cell";
 import { Coordinate } from "../models/coordinate";
 
-import { IGameOfLifeService } from "./i-game-of-life-service";
+import { IGameOfLifeService } from "./game-of-life-service";
 
 //    no life on the edge
 //    1. Any live cell with fewer than two live neighbours dies, as if caused by underpopulation.
@@ -13,8 +13,8 @@ class GameOfLifeServiceImpl implements IGameOfLifeService {
     private currentGeneration: Array<Cell>;
     private nextGeneration: Array<Cell>;
 
-    constructor(Matrix:Array<Cell>){
-        this.currentGeneration=Matrix;
+    constructor(matrix:Array<Cell>){
+        this.currentGeneration=matrix;
         this.nextGeneration = new Array();
     }
 
@@ -25,15 +25,6 @@ class GameOfLifeServiceImpl implements IGameOfLifeService {
         })
 
         return this.nextGeneration;
-
-        //      this is for backup so i dont have to write it again if i need to
-        //
-        // for(let i=1;i<this.currentGeneration.length-1;i++) {
-        //     for(let j=1;j<this.currentGeneration[i].length-1;j++){
-        //        let cellAndNeighbours = this.getCellMatrix(i,j);
-        //        this.nextGeneration[i][j]=this.getNextGenerationCell(cellAndNeighbours);
-        //     }
-        // }
     }
 
     private getNeighbours(cell: Cell) : Array<Cell> {
