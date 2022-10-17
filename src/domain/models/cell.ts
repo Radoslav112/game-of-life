@@ -2,12 +2,16 @@ import { Coordinate } from "./coordinate";
 
 
 export class Cell {
-    private status: boolean;
-    private position: Coordinate; 
+    private status: boolean = false;
+    private position: Coordinate = new Coordinate();
 
-    constructor() {
-        this.status = false;
-        this.position = new Coordinate(0,0);
+    constructor(status?:boolean,position?:Coordinate) {
+        if(status){
+            this.status=status;
+        }
+        if(position){
+            this.position=position;
+        }
     }
 
     getStatus(){

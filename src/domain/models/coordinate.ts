@@ -1,10 +1,15 @@
 export class Coordinate {
-    private x:number;
-    private y:number;
+    private x:number = 0;
+    private y:number = 0;
 
-    constructor(X:number,Y:number){
-        this.x=X;
-        this.y=Y;
+    constructor(x?:number,y?:number){
+        if(x) {
+        this.x=x;
+
+        }
+        if(y){
+        this.y=y;
+        }
     }
 
     getX(){

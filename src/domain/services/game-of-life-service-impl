@@ -12,19 +12,34 @@ class GameOfLifeServiceImpl implements IGameOfLifeService {
 
     private currentGeneration: Array<Cell>;
     private nextGeneration: Array<Cell>;
+    private cellCountOnRow: number;
 
-    constructor(matrix:Array<Cell>){
-        this.currentGeneration=matrix;
+    constructor(){
+        this.currentGeneration = new Array();
         this.nextGeneration = new Array();
     }
 
-    public generateNextGeneration(): Array<Cell> {
+    public generateNextGeneration(matrix:Array<Cell>): Array<Cell> {
+        this.currentGeneration=matrix;
+        this.cellCountOnRow = Math.sqrt(this.currentGeneration.length);
         this.currentGeneration.forEach((cell)=>{
-            let neighbours = this.getNeighbours(cell);
-            this.nextGeneration.push(this.getCellStatusForNextGeneration(cell, neighbours));
+            if(!this.isCellOnEdge(cell)) {
+                let neighbours = this.getNeighbours(cell);
+                this.nextGeneration.push(this.getCellStatusForNextGeneration(cell, neighbours));
+            }
+            else{
+                this.nextGeneration.push(new Cell(false,cell.getPosition()));
+            }
         })
 
         return this.nextGeneration;
+    }
+
+    private isCellOnEdge(cell:Cell):boolean{
+        return cell.getPosition().getX()===1||
+            cell.getPosition().getY()===1||
+            cell.getPosition().getX()==this.cellCountOnRow||
+            cell.getPosition().getY()==this.cellCountOnRow;
     }
 
     private getNeighbours(cell: Cell) : Array<Cell> {
