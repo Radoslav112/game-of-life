@@ -12,7 +12,7 @@ class GameOfLifeServiceImpl implements IGameOfLifeService {
 
     private currentGeneration: Array<Cell>;
     private nextGeneration: Array<Cell>;
-    private cellCountOnRow: number;
+    private cellCountOnRow: number = 0;
 
     constructor(){
         this.currentGeneration = new Array();
