@@ -8,7 +8,7 @@ import { IGameOfLifeService } from "./game-of-life-service";
 //    2. Any live cell with more than three live neighbours dies, as if by overcrowding.
 //    3. Any live cell with two or three live neighbours lives on to the next generation.
 //    4. Any dead cell with exactly three live neighbours becomes a live cell.
-class GameOfLifeServiceImpl implements IGameOfLifeService {
+export class GameOfLifeServiceImpl implements IGameOfLifeService {
 
     private currentGeneration: Array<Cell>;
     private nextGeneration: Array<Cell>;
