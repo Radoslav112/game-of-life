@@ -1,5 +1,6 @@
 import { Cell } from "../models/cell";
-import { GameOfLifeServiceImpl } from "./game-of-life-service-impl"
+import { Matrix } from "../models/matrix";
+import { GameOfLifeServiceImpl } from "./game-of-life-service-impl";
 
 describe('Testing game of life service',()=>{
     let service: GameOfLifeServiceImpl;
@@ -8,8 +9,24 @@ describe('Testing game of life service',()=>{
         service = new GameOfLifeServiceImpl();
     })
 
-    it('',()=>{
-        let matrix:Array<Cell>;
+    it('test game of life blinker',()=>{
+        let matrix:Matrix = new Matrix([
+            [0,0,0,0,0],
+            [0,0,0,0,0],
+            [0,1,1,1,0],
+            [0,0,0,0,0],
+            [0,0,0,0,0]
+        ]);
         let result = service.generateNextGeneration(matrix);
+
+        let expectedResult = new Matrix([
+            [0,0,0,0,0],
+            [0,0,1,0,0],
+            [0,0,1,0,0],
+            [0,0,1,0,0],
+            [0,0,0,0,0]
+        ])
+
+        expect(result).toEqual(expectedResult);
     })
 })

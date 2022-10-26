@@ -1,5 +1,6 @@
 import { Cell } from "../models/cell";
+import { Matrix } from "../models/matrix";
 
 export interface IGameOfLifeService {
-    generateNextGeneration(matrix:Array<Cell>): Array<Cell>;
+    generateNextGeneration(matrix:Matrix): Matrix;
 }
