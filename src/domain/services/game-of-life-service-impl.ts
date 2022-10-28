@@ -84,7 +84,7 @@ export class GameOfLifeServiceImpl implements IGameOfLifeService {
 
     private getCellStatusForNextGeneration(cell: Cell, neighbours: Array<Cell>) {
         let aliveNeighbours: number = this.getAliveNeighboursCount(neighbours);
-        cell.setStatus(this.willCellSurvive(aliveNeighbours) || this.willCellRevive(aliveNeighbours))
+        cell.setStatus((this.willCellSurvive(aliveNeighbours)&&cell.getStatus()) || (this.willCellRevive(aliveNeighbours)&&!cell.getStatus()))
         return cell;
     }
 

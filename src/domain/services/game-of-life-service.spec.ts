@@ -26,6 +26,12 @@ describe('Testing game of life service',()=>{
             [0,0,1,0,0],
             [0,0,0,0,0]
         ])
+            //actual result
+            // [0,0,0,0,0],
+            // [0,0,1,1,0],
+            // [0,1,0,1,0],
+            // [0,0,0,0,0],
+            // [0,0,0,0,0]
 
         expect(result).toEqual(expectedResult);
     })

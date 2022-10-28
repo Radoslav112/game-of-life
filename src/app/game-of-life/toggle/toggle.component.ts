@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { outputAst } from '@angular/compiler';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-toggle',
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./toggle.component.css']
 })
 export class ToggleComponent implements OnInit {
-
+  @Input() status:boolean = false;
+  @Output() onStateChange = new EventEmitter<boolean>();
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  public onClick(){
+    this.onStateChange.emit(!this.status);
   }
 
 }
