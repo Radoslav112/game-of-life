@@ -1,3 +1,4 @@
+.angular/**/*
 # Compiled output
 /dist
 /tmp

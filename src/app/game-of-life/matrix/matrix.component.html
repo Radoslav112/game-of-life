@@ -1,0 +1,7 @@
+<ng-container
+*ngFor="let cell of matrix.getArrayMatrix(); index as i"
+><app-toggle class="row" 
+[status]="cell.getStatus()"
+(onStateChange)="onStateChangeHandler($event,cell)"></app-toggle><br *ngIf="i%size===(size-1)"></ng-container>
+
+
